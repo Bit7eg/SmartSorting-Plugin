@@ -178,7 +178,7 @@ class Smart_Sorting {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-        //$this->loader->add_action('woocommerce_before_shop_loop', $plugin_public, 'test');
+        $this->loader->add_action('woocommerce_recorded_sales', $plugin_public, 'track_total_sales');
 
         $this->loader->add_filter('woocommerce_catalog_orderby', $plugin_public, 'smartsorting_catalog_orderby');
         $this->loader->add_filter('woocommerce_default_catalog_orderby_options', $plugin_public, 'smartsorting_catalog_orderby');

@@ -96,9 +96,6 @@ class Smart_Sorting_Public {
 		 * class.
 		 */
 
-        if($hook != 'orderby=smart-sorting'){
-            return;
-        }
 		wp_enqueue_script( $this->smart_sorting, plugin_dir_url( __FILE__ ) . 'js/smart-sorting-public.js', array( 'jquery' ), $this->version, false );
 
 	}
@@ -117,9 +114,17 @@ class Smart_Sorting_Public {
         }
         return $args;
     }
-/**
-    public function test(){
-        global $wp_rewrite;
-        echo get_self_link();
-    }*/
+
+    public function track_total_sales($order_id){
+        $order = wc_get_order( $order_id );
+        if ( count( $order->get_items() ) > 0 ) {
+            foreach ( $order->get_items() as $item ) {
+                $product_id = $item->get_product_id();
+
+                if ( $product_id ) {
+                    $item->get_quantity(); //Здесь надо отправить собранные данные по покупкам и просмотрам на сервак
+                }
+            }
+        }
+    }
 }
