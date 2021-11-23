@@ -31,23 +31,27 @@ class Smart_Sorting_Activator {
      */
 
 	public static function activate() {
-        $product_query = new WP_Query( array(
-            'post_type' => 'product',
-        ));
-        while ($product_query->have_posts()){
-            $product_query->the_post();
-            self::add_spv_metadata($product_query->post->ID);
-        }
-	}
-
-    public static function add_spv_metadata($product_id){
         $spv_attributes = array(
             'spv_views',
             'spv_sales',
             'spv',
         );
-        foreach ($spv_attributes as $key) {
-            update_post_meta($product_id, $key, 0);
+
+        $product_query = new WP_Query( array(
+            'post_type' => 'product',
+        ));
+        while ($product_query->have_posts()){
+            $product_query->the_post();
+            $id = $product_query->post->ID;
+            foreach ($spv_attributes as $key) {
+                $value = get_post_meta($id, $key, true);
+                if($value == '') {
+                    $value = 0;
+                }
+                update_post_meta($id, $key, $value);
+            }
         }
-    }
+	}
+
+
 }

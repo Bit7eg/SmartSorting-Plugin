@@ -1,18 +1,34 @@
+let first = 0;
+let products = new Map();
+
 (function($){
-	$(document).scroll(function(){
+	let current = get_first();
+	$(document).scroll(function() {
 		// проверяем
 		console.clear();
-		get_products_id().forEach((element) => checkPosition(element, $));
+		current = get_first();
+		if(first !== current) {
+			first = current;
+			products = get_products();
+		}
+		products.forEach((value, key) => checkPosition(key, $));
 	});
 
 	// после загрузки страницы сразу проверяем
 	console.clear();
-	get_products_id().forEach((element) => checkPosition(element, $));
+	first = current;
+	products = get_products();
+	products.forEach((value, key) => checkPosition(key, $));
 
 	// проверка при ресайзе страницы
 	$(window).resize(function(){
 		console.clear();
-		get_products_id().forEach((element) => checkPosition(element, $));
+		current = get_first();
+		if(first !== current) {
+			first = current;
+			products = get_products();
+		}
+		products.forEach((value, key) => checkPosition(key, $));
 	});
 
 })( jQuery );
@@ -58,8 +74,11 @@ function checkPosition(element, $){
 	let div_y2 = div_top + div_width;
 
 	// проверка - виден див полностью или нет
-	if( div_x1 >= see_x1 && div_x2 <= see_x2 && div_y1 >= see_y1 && div_y2 <= see_y2 ){
-		console.log('Вы видите элемент ' + element);
+	if (div_x1 >= see_x1 && div_x2 <= see_x2 && div_y1 >= see_y1 && div_y2 <= see_y2) {
+		if (!products.get(element)) {
+			products.set(element, true);
+			let c = 1; //в этой строчке надо закидывать в бд +1 к просмотрам товара
+		}
 		/*$.ajax({
 			type: "POST",
 			url: "functions/view_response.php",
@@ -67,15 +86,26 @@ function checkPosition(element, $){
 			cache: false,
 		});*/
 	}
+	else {
+		products.set(element, false);
+	}
+
 }
 
-function get_products_id(){
-	let elementsId = [];
+function get_first(){
+	let card = document.querySelector('.product');
+	let num = card.className.indexOf('post-') + 5;
+	num = parseInt(card.className.substring(num, card.className.indexOf(' ', num)));
+	return num;
+}
+
+function get_products(){
+	let elements = new Map();
 	let cards = document.querySelectorAll('.product');
 	cards.forEach(card => {
 		let num = card.className.indexOf('post-') + 5;
 		num = parseInt(card.className.substring(num, card.className.indexOf(' ', num)));
-		elementsId.push(num);
+		elements.set(num, false);
 	})
-	return elementsId;
+	return elements;
 }

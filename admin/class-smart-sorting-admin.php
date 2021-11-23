@@ -116,6 +116,21 @@ class Smart_Sorting_Admin {
         );
     }
 
+    public function add_spv_metadata($product_id) {
+        $spv_attributes = array(
+            'spv_views',
+            'spv_sales',
+            'spv',
+        );
+        foreach ($spv_attributes as $key) {
+            $value = get_post_meta($product_id, $key, true);
+            if($value == '') {
+                $value = 0;
+            }
+            update_post_meta($product_id, $key, $value);
+        }
+    }
+
     public function load_menu_content() {
         include plugin_dir_path( __FILE__ ) . 'partials/smart-sorting-admin-display.php';
     }

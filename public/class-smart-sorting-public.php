@@ -108,6 +108,7 @@ class Smart_Sorting_Public {
     public function get_smartsorting_ordering_args($args){
         $orderby_value = isset( $_GET['orderby'] ) ? wc_clean( $_GET['orderby'] ) : apply_filters( 'woocommerce_default_catalog_orderby', get_option( 'woocommerce_default_catalog_orderby' ) );
         if ( 'smart-sorting' == $orderby_value ) {
+            self::update_spv_value();
             $args['orderby'] = 'meta_value_num';
             $args['order'] = 'DESC';
             $args['meta_key'] = 'spv';
@@ -115,14 +116,33 @@ class Smart_Sorting_Public {
         return $args;
     }
 
+    public static function update_spv_value() {
+        $product_query = new WP_Query( array(
+            'post_type' => 'product',
+        ));
+        while ($product_query->have_posts()){
+            $product_query->the_post();
+            $id = $product_query->post->ID;
+            $spv_value = ((float)get_post_meta($id, 'spv_views', true))/((float)get_post_meta($id, 'spv_sales', true));
+            update_post_meta($id, 'spv', $spv_value);
+
+        }
+    }
+
     public function track_total_sales($order_id){
+        global $wpdb;
         $order = wc_get_order( $order_id );
         if ( count( $order->get_items() ) > 0 ) {
             foreach ( $order->get_items() as $item ) {
                 $product_id = $item->get_product_id();
-
                 if ( $product_id ) {
-                    $item->get_quantity(); //Здесь надо отправить собранные данные по покупкам и просмотрам на сервак
+                    $wpdb->query(
+                        $wpdb->prepare(
+                            "UPDATE {$wpdb->postmeta} SET meta_value = meta_value + %f WHERE post_id = %d AND meta_key='spv_sales'",
+                            $item->get_quantity(),
+                            $product_id
+                        )
+                    );
                 }
             }
         }
