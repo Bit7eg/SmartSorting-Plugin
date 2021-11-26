@@ -123,7 +123,11 @@ class Smart_Sorting_Public {
         while ($product_query->have_posts()){
             $product_query->the_post();
             $id = $product_query->post->ID;
-            $spv_value = ((float)get_post_meta($id, 'spv_views', true))/((float)get_post_meta($id, 'spv_sales', true));
+            $views = get_post_meta($id, 'spv_views', true);
+            $sales = get_post_meta($id, 'spv_sales', true);
+            $spv_value = 0;
+            if ($views != 0)
+                $spv_value = (float)$sales / (float)$views;
             update_post_meta($id, 'spv', $spv_value);
 
         }

@@ -77,14 +77,12 @@ function checkPosition(element, $){
 	if (div_x1 >= see_x1 && div_x2 <= see_x2 && div_y1 >= see_y1 && div_y2 <= see_y2) {
 		if (!products.get(element)) {
 			products.set(element, true);
-			let c = 1; //в этой строчке надо закидывать в бд +1 к просмотрам товара
+			$.ajax({
+				type: "POST",
+				url: "class-smart-sorting-track-views.php",
+				data: { product_id: element },
+			});
 		}
-		/*$.ajax({
-			type: "POST",
-			url: "functions/view_response.php",
-			dataType: "html",
-			cache: false,
-		});*/
 	}
 	else {
 		products.set(element, false);

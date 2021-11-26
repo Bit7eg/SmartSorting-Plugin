@@ -31,7 +31,7 @@ class Smart_Sorting_Activator {
      */
 
 	public static function activate() {
-        $spv_attributes = array(
+        $posts_meta = array(
             'spv_views',
             'spv_sales',
             'spv',
@@ -43,7 +43,7 @@ class Smart_Sorting_Activator {
         while ($product_query->have_posts()){
             $product_query->the_post();
             $id = $product_query->post->ID;
-            foreach ($spv_attributes as $key) {
+            foreach ($posts_meta as $key) {
                 $value = get_post_meta($id, $key, true);
                 if($value == '') {
                     $value = 0;
@@ -52,6 +52,4 @@ class Smart_Sorting_Activator {
             }
         }
 	}
-
-
 }
