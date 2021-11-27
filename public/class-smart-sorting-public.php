@@ -97,6 +97,7 @@ class Smart_Sorting_Public {
 		 */
 
 		wp_enqueue_script( $this->smart_sorting, plugin_dir_url( __FILE__ ) . 'js/smart-sorting-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->smart_sorting, plugin_dir_url( __FILE__ ) . 'php/class-smart-sorting-public.php', array('php'), $this->version, false );
 
 	}
 

@@ -1,11 +1,12 @@
 let first = 0;
 let products = new Map();
+let plugin_path = window.location.protocol + "//" + window.location.host + "/wp-content/plugins/SmartSorting-Plugin/public";
 
 (function($){
 	let current = get_first();
 	$(document).scroll(function() {
 		// проверяем
-		console.clear();
+		//console.clear();
 		current = get_first();
 		if(first !== current) {
 			first = current;
@@ -15,14 +16,14 @@ let products = new Map();
 	});
 
 	// после загрузки страницы сразу проверяем
-	console.clear();
+	//console.clear();
 	first = current;
 	products = get_products();
 	products.forEach((value, key) => checkPosition(key, $));
 
 	// проверка при ресайзе страницы
 	$(window).resize(function(){
-		console.clear();
+		//console.clear();
 		current = get_first();
 		if(first !== current) {
 			first = current;
@@ -77,11 +78,12 @@ function checkPosition(element, $){
 	if (div_x1 >= see_x1 && div_x2 <= see_x2 && div_y1 >= see_y1 && div_y2 <= see_y2) {
 		if (!products.get(element)) {
 			products.set(element, true);
-			$.ajax({
+			let yeah = $.ajax({
 				type: "POST",
-				url: "class-smart-sorting-track-views.php",
+				url: plugin_path + "/php/class-smart-sorting-track-views.php",
 				data: { product_id: element },
-			});
+			}).done(console.log('done!'));
+			console.log(yeah);
 		}
 	}
 	else {
@@ -92,6 +94,7 @@ function checkPosition(element, $){
 
 function get_first(){
 	let card = document.querySelector('.product');
+	if (card == null) return null;
 	let num = card.className.indexOf('post-') + 5;
 	num = parseInt(card.className.substring(num, card.className.indexOf(' ', num)));
 	return num;
