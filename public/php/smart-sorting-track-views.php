@@ -1,9 +1,12 @@
 <?php
 $id = $_POST['product_id'];
 include __DIR__ . "/../../../../../wp-load.php";
-$meta = 'spv_views';
-$value = get_post_meta($id, $meta, true);
-$value = $value + 1;
-update_post_meta($id, $meta, $value);
+global $wpdb;
+$wpdb->query(
+    $wpdb->prepare(
+        "UPDATE {$wpdb->postmeta} SET meta_value = meta_value + 1 WHERE post_id = %d AND meta_key='spv_views'",
+        $id
+    )
+);
 ?>
 
