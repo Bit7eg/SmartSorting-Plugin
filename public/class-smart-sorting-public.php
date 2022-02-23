@@ -147,15 +147,15 @@ class Smart_Sorting_Public {
                             $product_id
                         )
                     );
-                    $views_data = $wpdb->get_results(
+                    $view_nums = $wpdb->get_col(
                         $wpdb->prepare(
-                            "SELECT * FROM `wp_smart-sorting_views_table` WHERE view_date >= DATE_SUB(CURRENT_DATE, INTERVAL 7 DAY)"
+                            "SELECT view_num FROM `wp_smart-sorting_views_table` WHERE view_date > DATE_SUB(CURRENT_DATE, INTERVAL 7 DAY)"
                         )
                     );
                     $wpdb->query(
                         $wpdb->prepare(
                             "UPDATE {$wpdb->postmeta} SET meta_value = meta_value + %d WHERE post_id = %d AND meta_key='spv_views'",
-                            sizeof($views_data),
+                            array_sum($view_nums),
                             $product_id
                         )
                     );
