@@ -153,21 +153,24 @@ class Smart_Sorting_Public {
                         )
                     );
                     $sale_terms = get_the_terms($product_id, 'product_cat');
-                    $sum = 0;
                     foreach ($view_nums as $view_num) {
+                        $views = 0;
                         foreach (get_the_terms($view_num->product_id, 'product_cat') as $view_term) {
                             if (in_array($view_term, $sale_terms)) {
-                                $sum += $view_num->view_num;
+                                $views = $view_num->view_num;
+                                break;
                             }
                         }
+                        if ($views > 0) {
+                            $wpdb->query(
+                                $wpdb->prepare(
+                                    "UPDATE {$wpdb->postmeta} SET meta_value = meta_value + %d WHERE post_id = %d AND meta_key='spv_views'",
+                                    $views,
+                                    $view_num->product_id
+                                )
+                            );
+                        }
                     }
-                    $wpdb->query(
-                        $wpdb->prepare(
-                            "UPDATE {$wpdb->postmeta} SET meta_value = meta_value + %d WHERE post_id = %d AND meta_key='spv_views'",
-                            $sum,
-                            $product_id
-                        )
-                    );
                 }
             }
         }
