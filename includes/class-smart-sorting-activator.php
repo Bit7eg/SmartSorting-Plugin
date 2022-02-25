@@ -23,14 +23,10 @@
 class Smart_Sorting_Activator {
 
     /**
-     * Short Description. (use period)
      *
-     * Long Description.
-     *
-     * @since    1.0.0
      */
 
-	public static function activate() {
+    private static function add_spv_field() {
         $posts_meta = array(
             'spv_views',
             'spv_sales',
@@ -51,5 +47,29 @@ class Smart_Sorting_Activator {
                 update_post_meta($id, $key, $value);
             }
         }
+    }
+
+    /**
+     *
+     */
+
+    private static function add_views_tracking_table() {
+        global $wpdb;
+        $wpdb->query(
+            "CREATE TABLE `wp_smart-sorting_views_table` (product_id INT NOT NULL, user_id INT NOT NULL, view_date DATE NOT NULL, view_num INT DEFAULT 0 NOT NULL, PRIMARY KEY(product_id, user_id, view_date))"
+        );
+    }
+
+    /**
+     * Short Description. (use period)
+     *
+     * Long Description.
+     *
+     * @since    1.0.0
+     */
+
+	public static function activate() {
+        self::add_spv_field();
+        self::add_views_tracking_table();
 	}
 }

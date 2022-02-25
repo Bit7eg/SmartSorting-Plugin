@@ -1,6 +1,6 @@
 let first = 0;
 let products = new Map();
-let plugin_path = window.location.protocol + "//" + window.location.host + "/wp-content/plugins/SmartSorting-Plugin/public";
+let plugin_path = window.location.protocol + "//" + window.location.host + "/wp-content/plugins/SmartSorting/public";
 
 (function($){
 	let current = get_first();
@@ -8,28 +8,43 @@ let plugin_path = window.location.protocol + "//" + window.location.host + "/wp-
 		// проверяем
 		//console.clear();
 		current = get_first();
-		if(first !== current) {
-			first = current;
-			products = get_products();
+		if (current !== null) {
+			if(first !== current) {
+				first = current;
+				products = get_products();
+			}
+			products.forEach((value, key) => checkPosition(key, $));
 		}
-		products.forEach((value, key) => checkPosition(key, $));
+		else {
+			console.log('Page not found');
+		}
 	});
 
 	// после загрузки страницы сразу проверяем
 	//console.clear();
 	first = current;
-	products = get_products();
-	products.forEach((value, key) => checkPosition(key, $));
+	if (current !== null) {
+		products = get_products();
+		products.forEach((value, key) => checkPosition(key, $));
+	}
+	else {
+		console.log('Page not found');
+	}
 
 	// проверка при ресайзе страницы
 	$(window).resize(function(){
 		//console.clear();
 		current = get_first();
-		if(first !== current) {
-			first = current;
-			products = get_products();
+		if (current !== null) {
+			if(first !== current) {
+				first = current;
+				products = get_products();
+			}
+			products.forEach((value, key) => checkPosition(key, $));
 		}
-		products.forEach((value, key) => checkPosition(key, $));
+		else {
+			console.log('Page not found');
+		}
 	});
 
 })( jQuery );
@@ -73,14 +88,13 @@ function checkPosition(element, $){
 	let div_x2 = div_left + div_height;
 	let div_y1 = div_top;
 	let div_y2 = div_top + div_width;
-
 	// проверка - виден див полностью или нет
 	if (div_x1 >= see_x1 && div_x2 <= see_x2 && div_y1 >= see_y1 && div_y2 <= see_y2) {
 		if (!products.get(element)) {
 			products.set(element, true);
 			$.ajax({
 				type: "POST",
-				url: plugin_path + "/php/class-smart-sorting-track-views.php",
+				url: plugin_path + "/php/smart-sorting-track-views.php",
 				data: { product_id: element },
 			});
 		}

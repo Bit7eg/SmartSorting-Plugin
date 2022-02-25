@@ -97,7 +97,6 @@ class Smart_Sorting_Public {
 		 */
 
 		wp_enqueue_script( $this->smart_sorting, plugin_dir_url( __FILE__ ) . 'js/smart-sorting-public.js', array( 'jquery' ), $this->version, false );
-		wp_enqueue_script( $this->smart_sorting, plugin_dir_url( __FILE__ ) . 'php/class-smart-sorting-public.php', array('php'), $this->version, false );
 
 	}
 
@@ -145,6 +144,18 @@ class Smart_Sorting_Public {
                         $wpdb->prepare(
                             "UPDATE {$wpdb->postmeta} SET meta_value = meta_value + %f WHERE post_id = %d AND meta_key='spv_sales'",
                             $item->get_quantity(),
+                            $product_id
+                        )
+                    );
+                    $view_nums = $wpdb->get_col(
+                        $wpdb->prepare(
+                            "SELECT view_num FROM `wp_smart-sorting_views_table` WHERE view_date > DATE_SUB(CURRENT_DATE, INTERVAL 7 DAY)"
+                        )
+                    );
+                    $wpdb->query(
+                        $wpdb->prepare(
+                            "UPDATE {$wpdb->postmeta} SET meta_value = meta_value + %d WHERE post_id = %d AND meta_key='spv_views'",
+                            array_sum($view_nums),
                             $product_id
                         )
                     );
