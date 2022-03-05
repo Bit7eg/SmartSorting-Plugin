@@ -136,6 +136,7 @@ class Smart_Sorting_Public {
     public function track_total_sales($order_id){
         global $wpdb;
         $order = wc_get_order( $order_id );
+        $view_delay = get_option('ss_view_delay');
         if ( count( $order->get_items() ) > 0 ) {
             foreach ( $order->get_items() as $item ) {
                 $product_id = $item->get_product_id();
@@ -149,7 +150,8 @@ class Smart_Sorting_Public {
                     );
                     $view_nums = $wpdb->get_result(
                         $wpdb->prepare(
-                            "SELECT product_id, view_num FROM `wp_smart-sorting_views_table` WHERE view_date > DATE_SUB(CURRENT_DATE, INTERVAL 7 DAY)"
+                            "SELECT product_id, view_num FROM `wp_smart-sorting_views_table` WHERE view_date > DATE_SUB(CURRENT_DATE, INTERVAL %d DAY)",
+                            $view_delay
                         )
                     );
                     $sale_terms = get_the_terms($product_id, 'product_cat');

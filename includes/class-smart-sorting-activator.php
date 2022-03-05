@@ -20,6 +20,19 @@
  * @subpackage SmartSorting/includes
  * @author     Your Name <email@example.com>
  */
+
+class smart_sorting_setting {
+    public $setting_name = "";
+    public $value = 0;
+    public $slug = "";
+
+    public function __construct($setting_name, $value, $slug) {
+        $this->setting_name = $setting_name;
+        $this->value = $value;
+        $this->slug = $slug;
+    }
+}
+
 class Smart_Sorting_Activator {
 
     /**
@@ -60,9 +73,37 @@ class Smart_Sorting_Activator {
         );
     }
 
+    private static function add_plugin_settings_table() {
+        global $wpdb;
+        $wpdb->query(
+            "CREATE TABLE `wp_smart-sorting_settings_table`
+                            (setting_name varchar(100) not null primary key, 
+                             setting_value int not null,
+                             slug varchar(100) not null)"
+        );
+    }
+
+    private static function add_plugin_settings() {
+        $settings = array(
+          new smart_sorting_setting('view_delay', 7, 'View delay')
+        );
+        foreach ($settings as $setting) {
+            self::add_plugin_setting($setting->setting_name, $setting->value, $setting->slug);
+        }
+    }
+
+    private static function add_plugin_setting($setting_name, $value, $slug) {
+        global $wpdb;
+        $wpdb->query(
+            $wpdb->prepare(
+                "INSERT INTO `wp_smart-sorting_settings_table` VALUES (%s, %d, %s)",
+                $setting_name, $value, $slug
+            )
+        );
+    }
+
     /**
      * Short Description. (use period)
-     *
      * Long Description.
      *
      * @since    1.0.0
@@ -71,5 +112,7 @@ class Smart_Sorting_Activator {
 	public static function activate() {
         self::add_spv_field();
         self::add_views_tracking_table();
+        //self::add_plugin_settings_table();
+        //self::add_plugin_settings();
 	}
 }

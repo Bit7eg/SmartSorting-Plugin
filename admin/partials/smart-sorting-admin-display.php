@@ -1,17 +1,14 @@
 <?php
+    function show_smart_sorting_options() {
+        echo '<div class="wrap">
+	    <h1>' . get_admin_page_title() . '</h1>
+	    <form method="post" action="options.php">';
 
-/**
- * Provide a admin area view for the plugin
- *
- * This file is used to markup the admin-facing aspects of the plugin.
- *
- * @link       http://example.com
- * @since      1.0.0
- *
- * @package    SmartSorting
- * @subpackage SmartSorting/admin/partials
- */
+        settings_fields('smart-sorting_settings');
+        do_settings_sections('smart-sorting_settings');
+        submit_button();
+
+        echo '</form></div>';
+    }
+
 ?>
-<p>
-    Some content on html
-</p>

@@ -162,6 +162,7 @@ class Smart_Sorting {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
         $this->loader->add_action('admin_menu', $plugin_admin, 'create_admin_menu');
+        $this->loader->add_action( 'admin_init', $plugin_admin, 'smart_sorting_settings_fields' );
         $this->loader->add_action('woocommerce_update_product', $plugin_admin, 'add_spv_metadata');
 
 	}
