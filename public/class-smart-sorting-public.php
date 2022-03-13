@@ -136,7 +136,7 @@ class Smart_Sorting_Public {
     public function track_total_sales($order_id){
         global $wpdb;
         $order = wc_get_order( $order_id );
-        $view_delay = get_option('ss_view_delay');
+        $view_delay = get_option('ss_views_delay');
         if ( count( $order->get_items() ) > 0 ) {
             foreach ( $order->get_items() as $item ) {
                 $product_id = $item->get_product_id();
@@ -148,29 +148,68 @@ class Smart_Sorting_Public {
                             $product_id
                         )
                     );
-                    $view_nums = $wpdb->get_result(
-                        $wpdb->prepare(
-                            "SELECT product_id, view_num FROM `wp_smart-sorting_views_table` WHERE view_date > DATE_SUB(CURRENT_DATE, INTERVAL %d DAY)",
-                            $view_delay
-                        )
-                    );
+                    if (is_user_logged_in()) {
+                        $uid=get_current_user_id();
+                    }
+                    else {
+                        $uid=-1;
+                    }
+                    if ($view_delay!=0) {
+                        $view_nums = $wpdb->get_results(
+                            $wpdb->prepare(
+                                "SELECT product_id, view_num FROM `wp_smart-sorting_views_table` WHERE view_date > DATE_SUB(CURRENT_DATE, INTERVAL %d DAY) AND user_id=%d AND is_counted = 0",
+                                $view_delay,
+                                $uid
+                            )
+                        );
+                    }
+                    else {
+                        $view_nums = $wpdb->get_results(
+                            $wpdb->prepare(
+                                "SELECT product_id, view_num FROM `wp_smart-sorting_views_table` WHERE user_id=%d AND is_counted = 0",
+                                $uid
+                            )
+                        );
+                    }
                     $sale_terms = get_the_terms($product_id, 'product_cat');
+                    $views=array();
                     foreach ($view_nums as $view_num) {
-                        $views = 0;
+                        $views[$view_num->product_id]=0;
                         foreach (get_the_terms($view_num->product_id, 'product_cat') as $view_term) {
                             if (in_array($view_term, $sale_terms)) {
-                                $views = $view_num->view_num;
+                                $views[$view_num->product_id] += $view_num->view_num;
                                 break;
                             }
                         }
-                        if ($views > 0) {
+                    }
+                    foreach ($views as $p_id => $p_view) {
+                        if ($p_view > 0) {
                             $wpdb->query(
                                 $wpdb->prepare(
                                     "UPDATE {$wpdb->postmeta} SET meta_value = meta_value + %d WHERE post_id = %d AND meta_key='spv_views'",
-                                    $views,
-                                    $view_num->product_id
+                                    $p_view,
+                                    $p_id
                                 )
                             );
+                            if ($view_delay!=0) {
+                                $wpdb->query(
+                                    $wpdb->prepare(
+                                        "UPDATE `wp_smart-sorting_views_table` SET is_counted=1 WHERE view_date > DATE_SUB(CURRENT_DATE, INTERVAL %d DAY) AND user_id=%d AND product_id = %d AND is_counted = 0",
+                                        $view_delay,
+                                        $uid,
+                                        $p_id
+                                    )
+                                );
+                            }
+                            else {
+                                $wpdb->query(
+                                    $wpdb->prepare(
+                                        "UPDATE `wp_smart-sorting_views_table` SET is_counted=1 WHERE user_id=%d AND product_id = %d AND is_counted = 0",
+                                        $uid,
+                                        $p_id
+                                    )
+                                );
+                            }
                         }
                     }
                 }

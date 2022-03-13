@@ -173,7 +173,7 @@ class Smart_Sorting_Admin
         $option = get_option($args['name']);
 
         printf(
-            '<input type="number" min="1" id="%s" name="%s" value="%d" />',
+            '<input type="number" min="0" id="%s" name="%s" value="%d" />',
             esc_attr($args['name']),
             esc_attr($args['name']),
             absint($option)

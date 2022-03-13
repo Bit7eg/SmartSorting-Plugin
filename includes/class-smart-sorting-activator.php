@@ -69,7 +69,12 @@ class Smart_Sorting_Activator {
     private static function add_views_tracking_table() {
         global $wpdb;
         $wpdb->query(
-            "CREATE TABLE `wp_smart-sorting_views_table` (product_id INT NOT NULL, user_id INT NOT NULL, view_date DATE NOT NULL, view_num INT DEFAULT 0 NOT NULL, PRIMARY KEY(product_id, user_id, view_date))"
+            "CREATE TABLE `wp_smart-sorting_views_table` (
+                product_id INT NOT NULL,
+                user_id INT NOT NULL,
+                view_date DATE NOT NULL,
+                view_num INT DEFAULT 0 NOT NULL,
+                is_counted BIT DEFAULT 0 NOT NULL)"
         );
     }
 
