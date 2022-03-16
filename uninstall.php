@@ -25,7 +25,33 @@
  * @package    Plugin_Name
  */
 
-// If uninstall not called from WordPress, then exit.
+// If uninstall not called from WordPress, then die.
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
-	exit;
+	die;
 }
+
+$option_list = array(
+    'ss_views_delay',
+);
+foreach ($option_list as $option) {
+    delete_option($option);
+    delete_site_option($option);
+}
+
+$meta_list = array(
+    'spv_views',
+    'spv_sales',
+    'spv',
+);
+foreach ($meta_list as $meta) {
+    delete_metadata( 'post', null, $meta, '', true );
+}
+
+global $wpdb;
+$table_list = array(
+    "`wp_smart-sorting_views_table`",
+);
+foreach ($table_list as $table) {
+    $wpdb->query("DROP TABLE IF EXISTS {$table}");
+}
+
