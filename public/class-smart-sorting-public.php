@@ -100,15 +100,15 @@ class Smart_Sorting_Public {
 
 	}
 
-    public function smartsorting_catalog_orderby($sortby) {
-        $sortby['smart-sorting'] = 'Improved sorting';
-        return $sortby;
-    }
-
     public function get_smartsorting_ordering_args($args){
-        $orderby_value = isset( $_GET['orderby'] ) ? wc_clean( $_GET['orderby'] ) : apply_filters( 'woocommerce_default_catalog_orderby', get_option( 'woocommerce_default_catalog_orderby' ) );
-        if ( 'smart-sorting' == $orderby_value ) {
-            self::update_spv_value();
+        if (isset( $_GET['orderby'] )) {
+            if ( 'menu_order' == wc_clean( $_GET['orderby'] ) ) {
+                $args['orderby'] = 'meta_value_num';
+                $args['order'] = 'DESC';
+                $args['meta_key'] = 'spv';
+            }
+        }
+        else {
             $args['orderby'] = 'meta_value_num';
             $args['order'] = 'DESC';
             $args['meta_key'] = 'spv';
@@ -129,7 +129,6 @@ class Smart_Sorting_Public {
             if ($views != 0)
                 $spv_value = (float)$sales / (float)$views;
             update_post_meta($id, 'spv', $spv_value);
-
         }
     }
 
