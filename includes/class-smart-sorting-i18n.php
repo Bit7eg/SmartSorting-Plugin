@@ -9,8 +9,8 @@
  * @link       http://example.com
  * @since      1.0.0
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/includes
+ * @package    SmartSorting
+ * @subpackage SmartSorting/includes
  */
 
 /**
@@ -32,7 +32,7 @@ class Smart_Sorting_i18n {
 	 *
 	 * @since    1.0.0
 	 */
-	public function load_plugin_textdomain() {
+	public function load_plugin_smart_sorting() {
 
 		load_plugin_textdomain(
 			'smart-sorting',

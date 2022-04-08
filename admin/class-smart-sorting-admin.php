@@ -20,8 +20,7 @@
  * @subpackage SmartSorting/admin
  * @author     Your Name <email@example.com>
  */
-class Smart_Sorting_Admin
-{
+class Smart_Sorting_Admin {
 
     /**
      * The ID of this plugin.
@@ -48,11 +47,10 @@ class Smart_Sorting_Admin
      * @param string $version The version of this plugin.
      * @since    1.0.0
      */
-    public function __construct($smart_sorting, $version)
-    {
+    public function __construct( $smart_sorting, $version ) {
 
         $this->smart_sorting = $smart_sorting;
-        $this->version = $version;
+        $this->version       = $version;
 
     }
 
@@ -61,8 +59,7 @@ class Smart_Sorting_Admin
      *
      * @since    1.0.0
      */
-    public function enqueue_styles($hook)
-    {
+    public function enqueue_styles() {
 
         /**
          * This function is provided for demonstration purposes only.
@@ -71,14 +68,18 @@ class Smart_Sorting_Admin
          * defined in Plugin_Name_Loader as all of the hooks are defined
          * in that particular class.
          *
-         * The Plugin_Name_Loader will then create the relationship
+         * The Smart_Sorting_Loader will then create the relationship
          * between the defined hooks and the functions defined in this
          * class.
          */
-        if ($hook != 'toplevel_page_smartsoring-config') {
-            return;
-        }
-        wp_enqueue_style($this->smart_sorting . '_admin_styles', plugin_dir_url(__FILE__) . 'css/smart-sorting-admin.css', array(), false, 'all');
+
+        wp_enqueue_style(
+            $this->smart_sorting . '_admin_styles',
+            plugin_dir_url( __FILE__ ) . 'css/smart-sorting-admin.css',
+            array(),
+            false,
+            'all'
+        );
 
     }
 
@@ -87,8 +88,7 @@ class Smart_Sorting_Admin
      *
      * @since    1.0.0
      */
-    public function enqueue_scripts($hook)
-    {
+    public function enqueue_scripts() {
 
         /**
          * This function is provided for demonstration purposes only.
@@ -97,52 +97,53 @@ class Smart_Sorting_Admin
          * defined in Plugin_Name_Loader as all of the hooks are defined
          * in that particular class.
          *
-         * The Plugin_Name_Loader will then create the relationship
+         * The Smart_Sorting_Loader will then create the relationship
          * between the defined hooks and the functions defined in this
          * class.
          */
-        if ($hook != 'toplevel_page_smartsoring-config') {
-            return;
-        }
-        wp_enqueue_script($this->smart_sorting . '_admin_scripts', plugin_dir_url(__FILE__) . 'js/smart-sorting-admin.js', array('jquery'), false, false);
+
+        wp_enqueue_script(
+            $this->smart_sorting . '_admin_scripts',
+            plugin_dir_url( __FILE__ ) . 'js/smart-sorting-admin.js',
+            array( 'jquery' ),
+            false,
+            false
+        );
 
     }
 
-    public function create_admin_menu()
-    {
+    public function create_admin_menu() {
         add_options_page(
-            __('Smart-sorting settings', 'textdomain'),
-            __('Smart-sorting settings', 'textdomain'),
+            __( 'Smart-sorting settings', 'smart-sorting' ),
+            __( 'Smart-sorting settings', 'smart-sorting' ),
             'manage_options',
             'smart-sorting_settings',
-            array($this, 'load_menu_content')
+            array( $this, 'load_menu_content' )
         );
     }
 
-    public function add_spv_metadata($product_id)
-    {
+    public function add_spv_metadata( $product_id ) {
         $spv_attributes = array(
             'spv_views',
             'spv_sales',
             'spv',
         );
-        foreach ($spv_attributes as $key) {
-            $value = get_post_meta($product_id, $key, true);
-            if ($value == '') {
+        foreach ( $spv_attributes as $key ) {
+            $value = get_post_meta( $product_id, $key, true );
+            if ( '' == $value ) {
                 $value = 0;
             }
-            update_post_meta($product_id, $key, $value);
+            update_post_meta( $product_id, $key, $value );
         }
     }
 
-    public function load_menu_content()
-    {
-        include plugin_dir_path(__FILE__) . 'partials/smart-sorting-admin-display.php';
+    public function load_menu_content() {
+        include plugin_dir_path( __FILE__ ) .
+            'partials/smart-sorting-admin-display.php';
         show_smart_sorting_options();
     }
 
-    public function smart_sorting_settings_fields()
-    {
+    public function smart_sorting_settings_fields() {
         register_setting(
             'smart-sorting_settings',
             'ss_views_delay',
@@ -158,25 +159,24 @@ class Smart_Sorting_Admin
 
         add_settings_field(
             'ss_views_delay',
-            'Задержка просмотров',
-            array($this, 'display_views_delay_field'),
+            __( 'Задержка просмотров', 'smart-sorting' ),
+            array( $this, 'display_views_delay_field' ),
             'smart-sorting_settings',
             'section',
             array(
-                'name' => 'ss_views_delay'
+                'name' => 'ss_views_delay',
             )
         );
     }
 
-    public function display_views_delay_field($args)
-    {
-        $option = get_option($args['name']);
+    public function display_views_delay_field( $args ) {
+        $option = get_option( $args['name'] );
 
         printf(
             '<input type="number" min="0" id="%s" name="%s" value="%d" />',
-            esc_attr($args['name']),
-            esc_attr($args['name']),
-            absint($option)
+            esc_attr( $args['name'] ),
+            esc_attr( $args['name'] ),
+            absint( $option )
         );
     }
 }

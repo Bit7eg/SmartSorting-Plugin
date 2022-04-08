@@ -1,121 +1,93 @@
-let first = 0;
-let products = new Map();
-let plugin_path = window.location.protocol + "//" + window.location.host + "/wp-content/plugins/SmartSorting/public";
+var first, products, pluginPath;
+first = 0;
+products = new Map();
+pluginPath = window.location.protocol + '//' +
+	window.location.host + '/wp-content/plugins/SmartSorting/public';
 
-(function($){
-	let current = get_first();
-	$(document).scroll(function() {
-		// проверяем
-		//console.clear();
-		current = get_first();
-		if (current !== null) {
-			if(first !== current) {
-				first = current;
-				products = get_products();
-			}
-			products.forEach((value, key) => checkPosition(key, $));
-		}
-		else {
-			console.log('Page not found');
-		}
-	});
+(function( $ ) {
+	var current;
+	$(document).scroll( updatePageInformation( $ ) );
+	$(window).resize( updatePageInformation( $ ) );
 
-	// после загрузки страницы сразу проверяем
-	//console.clear();
+	current = getFirst();
 	first = current;
-	if (current !== null) {
-		products = get_products();
-		products.forEach((value, key) => checkPosition(key, $));
+	if ( null !== current ) {
+		products = getProducts();
+		products.forEach(( value, key ) => checkPosition( key, $ ));
 	}
 	else {
-		console.log('Page not found');
+		console.log( 'Page not found' );
 	}
-
-	// проверка при ресайзе страницы
-	$(window).resize(function(){
-		//console.clear();
-		current = get_first();
-		if (current !== null) {
-			if(first !== current) {
-				first = current;
-				products = get_products();
-			}
-			products.forEach((value, key) => checkPosition(key, $));
-		}
-		else {
-			console.log('Page not found');
-		}
-	});
 
 })( jQuery );
 
-/** функция проверки полной видимости элемента
- *
- * @param $
- * @param {number} element
- */
-function checkPosition(element, $){
-	let elementClass = '.post-' + element;
+function updatePageInformation( $ ) {
+	var current = getFirst();
+	if ( null !== current ) {
+		if( first !== current ) {
+			first = current;
+			products = getProducts();
+		}
+		products.forEach(( value, key ) => checkPosition( key, $ ));
+	}
+	else {
+		console.log( 'Page not found' );
+	}
+}
 
-	// координаты дива
-	let div_position = $(elementClass).offset();
-	// отступ сверху
-	let div_top = div_position.top;
-	// отступ слева
-	let div_left = div_position.left;
-	// ширина
-	let div_width = $(elementClass).width();
-	// высота
-	let div_height = $(elementClass).height();
+function checkPosition( element, $ ) {
+	var elementClass = '.post-' + element,
+		divPosition = $( elementClass ).offset(),
+		divTop = divPosition.top,
+		divLeft = divPosition.left,
+		divWidth = $( elementClass ).width(),
+		divHeight = $( elementClass ).height(),
+		topScroll = $( document ).scrollTop(),
+		leftScroll = $( document ).scrollLeft(),
+		screenWidth = $( window ).width(),
+		screenHeight = $( window ).height(),
+		seeX1 = leftScroll,
+		seeX2 = screenWidth + leftScroll,
+		seeY1 = topScroll,
+		seeY2 = screenHeight + topScroll,
+		divX1 = divLeft,
+		divX2 = divLeft + divHeight,
+		divY1 = divTop,
+		divY2 = divTop + divWidth;
 
-	// проскроллено сверху
-	let top_scroll = $(document).scrollTop();
-	// проскроллено слева
-	let left_scroll = $(document).scrollLeft();
-	// ширина видимой страницы
-	let screen_width = $(window).width();
-	// высота видимой страницы
-	let screen_height = $(window).height();
-
-	// координаты углов видимой области
-	let see_x1 = left_scroll;
-	let see_x2 = screen_width + left_scroll;
-	let see_y1 = top_scroll;
-	let see_y2 = screen_height + top_scroll;
-
-	// координаты углов искомого элемента
-	let div_x1 = div_left;
-	let div_x2 = div_left + div_height;
-	let div_y1 = div_top;
-	let div_y2 = div_top + div_width;
-	// проверка - виден див полностью или нет
-	if (div_x1 >= see_x1 && div_x2 <= see_x2 && div_y1 >= see_y1 && div_y2 <= see_y2) {
-		if (!products.get(element)) {
-			products.set(element, true);
+	if ( divX1 >= seeX1 && divX2 <= seeX2 && divY1 >= seeY1 && divY2 <= seeY2 ) {
+		if ( ! products.get( element ) ) {
+			products.set( element, true );
 			$.ajax({
-				type: "POST",
-				url: plugin_path + "/php/smart-sorting-track-views.php",
-				data: { product_id: element },
+				type: 'POST',
+				url: pluginPath + '/php/smart-sorting-track-views.php',
+				data: { productId: element },
 			});
 		}
 	}
 }
 
-function get_first(){
-	let card = document.querySelector('.product');
-	if (card == null) return null;
-	let num = card.className.indexOf('post-') + 5;
-	num = parseInt(card.className.substring(num, card.className.indexOf(' ', num)));
-	return num;
+function getFirst() {
+	var startNum, endNum, postId,
+		card = document.querySelector( '.product' );
+	if ( null == card ) {
+		return null;
+	}
+	startNum = card.className.indexOf( 'post-' ) + 5;
+	endNum = card.className.indexOf( ' ', startNum );
+	postId = card.className.substring( startNum, endNum );
+	return parseInt( postId );
 }
 
-function get_products(){
-	let elements = new Map();
-	let cards = document.querySelectorAll('.product');
+function getProducts() {
+	var startNum, endNum, postId,
+		elements = new Map(),
+		cards = document.querySelectorAll( '.product' );
 	cards.forEach(card => {
-		let num = card.className.indexOf('post-') + 5;
-		num = parseInt(card.className.substring(num, card.className.indexOf(' ', num)));
-		elements.set(num, false);
+		startNum = card.className.indexOf( 'post-' ) + 5;
+		endNum = card.className.indexOf( ' ', startNum );
+		postId = card.className.substring( startNum, endNum );
+		elements.set( parseInt( postId ), false );
 	})
 	return elements;
 }

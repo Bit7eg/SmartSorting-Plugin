@@ -27,9 +27,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Currently plugin version.
  * Start at version 1.0.0 and use SemVer - https://semver.org
- * Rename this for your plugin and update it as you release new versions.
  */
-add_option("view_delay", 7);
 define( 'SMART_SORTING_VERSION', '1.0.0' );
 
 /**
@@ -37,7 +35,8 @@ define( 'SMART_SORTING_VERSION', '1.0.0' );
  * This action is documented in includes/class-smart-sorting-activator.php
  */
 function activate_smart_sorting() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-smart-sorting-activator.php';
+	require_once plugin_dir_path( __FILE__ ) .
+        'includes/class-smart-sorting-activator.php';
 	Smart_Sorting_Activator::activate();
 }
 
@@ -46,7 +45,8 @@ function activate_smart_sorting() {
  * This action is documented in includes/class-smart-sorting-deactivator.php
  */
 function deactivate_smart_sorting() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-smart-sorting-deactivator.php';
+	require_once plugin_dir_path( __FILE__ ) .
+        'includes/class-smart-sorting-deactivator.php';
 	Smart_Sorting_Deactivator::deactivate();
 }
 

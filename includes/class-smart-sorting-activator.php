@@ -21,18 +21,6 @@
  * @author     Your Name <email@example.com>
  */
 
-class smart_sorting_setting {
-    public $setting_name = "";
-    public $value = 0;
-    public $slug = "";
-
-    public function __construct($setting_name, $value, $slug) {
-        $this->setting_name = $setting_name;
-        $this->value = $value;
-        $this->slug = $slug;
-    }
-}
-
 class Smart_Sorting_Activator {
 
     /**
@@ -49,12 +37,12 @@ class Smart_Sorting_Activator {
         $product_query = new WP_Query( array(
             'post_type' => 'product',
         ));
-        while ($product_query->have_posts()){
+        while ( $product_query->have_posts() ) {
             $product_query->the_post();
             $id = $product_query->post->ID;
-            foreach ($posts_meta as $key) {
-                $value = get_post_meta($id, $key, true);
-                if($value == '') {
+            foreach ( $posts_meta as $key ) {
+                $value = get_post_meta( $id, $key, true );
+                if( $value == '' ) {
                     $value = 0;
                 }
                 update_post_meta($id, $key, $value);
@@ -88,5 +76,6 @@ class Smart_Sorting_Activator {
 	public static function activate() {
         self::add_spv_field();
         self::add_views_tracking_table();
+        add_option( 'view_delay', 7 );
 	}
 }
