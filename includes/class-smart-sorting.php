@@ -1,16 +1,16 @@
 <?php
 
 /**
- * The file that defines the core plugin class
+ * The file that defines the core plugin class.
  *
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the admin area.
  *
- * @link       http://example.com
- * @since      1.0.0
+ * @license     https://www.gnu.org/licenses/lgpl-3.0.txt  LGPL License 3.0
+ * @since       1.0.0-alpha
  *
- * @package    SmartSorting
- * @subpackage SmartSorting/includes
+ * @package     SmartSorting
+ * @subpackage  SmartSorting/includes
  */
 
 /**
@@ -22,10 +22,9 @@
  * Also maintains the unique identifier of this plugin as well as the current
  * version of the plugin.
  *
- * @since      1.0.0
- * @package    SmartSorting
- * @subpackage SmartSorting/includes
- * @author     Your Name <email@example.com>
+ * @package     SmartSorting
+ * @subpackage  SmartSorting/includes
+ * @author      SmartSorting Team <smartsprtingofficial@gmail.com>
  */
 class Smart_Sorting {
 
@@ -33,27 +32,27 @@ class Smart_Sorting {
 	 * The loader that's responsible for maintaining and registering all hooks that power
 	 * the plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    1.0.0-alpha
 	 * @access   protected
-	 * @var      Smart_Sorting_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      Smart_Sorting_Loader $loader Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
 	/**
 	 * The unique identifier of this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    1.0.0-alpha
 	 * @access   protected
-	 * @var      string    $smart_sorting    The string used to uniquely identify this plugin.
+	 * @var      string $smart_sorting The string used to uniquely identify this plugin.
 	 */
 	protected $smart_sorting;
 
 	/**
 	 * The current version of the plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    1.0.0-alpha
 	 * @access   protected
-	 * @var      string    $version    The current version of the plugin.
+	 * @var      string $version The current version of the plugin.
 	 */
 	protected $version;
 
@@ -64,13 +63,13 @@ class Smart_Sorting {
 	 * Load the dependencies, define the locale, and set the hooks for the admin area and
 	 * the public-facing side of the site.
 	 *
-	 * @since    1.0.0
+	 * @since   1.0.0-alpha
 	 */
 	public function __construct() {
 		if ( defined( 'SMART_SORTING_VERSION' ) ) {
 			$this->version = SMART_SORTING_VERSION;
 		} else {
-			$this->version = '1.0.0';
+			$this->version = '1.0.0-alpha';
 		}
 		$this->smart_sorting = 'smart-sorting';
 
@@ -94,7 +93,7 @@ class Smart_Sorting {
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
 	 *
-	 * @since    1.0.0
+	 * @since    1.0.0-alpha
 	 * @access   private
 	 */
 	private function load_dependencies() {
@@ -128,9 +127,9 @@ class Smart_Sorting {
 
         /**
          *
-         */
+         *
         require_once plugin_dir_path( dirname( __FILE__, 2 ) ) .
-            'woocommerce/woocommerce.php';
+            'woocommerce/woocommerce.php';*/
 
 		$this->loader = new Smart_Sorting_Loader();
 
@@ -142,7 +141,7 @@ class Smart_Sorting {
 	 * Uses the Smart_Sorting_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
-	 * @since    1.0.0
+	 * @since    1.0.0-alpha
 	 * @access   private
 	 */
 	private function set_locale() {
@@ -161,7 +160,7 @@ class Smart_Sorting {
 	 * Register all of the hooks related to the admin area functionality
 	 * of the plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    1.0.0-alpha
 	 * @access   private
 	 */
 	private function define_admin_hooks() {
@@ -203,7 +202,7 @@ class Smart_Sorting {
 	 * Register all of the hooks related to the public-facing functionality
 	 * of the plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    1.0.0-alpha
 	 * @access   private
 	 */
 	private function define_public_hooks() {
@@ -245,7 +244,7 @@ class Smart_Sorting {
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.
 	 *
-	 * @since    1.0.0
+	 * @since    1.0.0-alpha
 	 */
 	public function run() {
 		$this->loader->run();
@@ -255,7 +254,7 @@ class Smart_Sorting {
 	 * The name of the plugin used to uniquely identify it within the context of
 	 * WordPress and to define internationalization functionality.
 	 *
-	 * @since     1.0.0
+	 * @since     1.0.0-alpha
 	 * @return    string    The name of the plugin.
 	 */
 	public function get_smart_sorting() {
@@ -265,7 +264,7 @@ class Smart_Sorting {
 	/**
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
-	 * @since     1.0.0
+	 * @since     1.0.0-alpha
 	 * @return    Smart_Sorting_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
@@ -275,7 +274,7 @@ class Smart_Sorting {
 	/**
 	 * Retrieve the version number of the plugin.
 	 *
-	 * @since     1.0.0
+	 * @since     1.0.0-alpha
 	 * @return    string    The version number of the plugin.
 	 */
 	public function get_version() {

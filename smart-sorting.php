@@ -2,17 +2,16 @@
 
 /**
  *
- * @link              http://example.com
- * @since             1.0.0
+ * @license           https://www.gnu.org/licenses/lgpl-3.0.txt  LGPL License 3.0
+ * @since             1.0.0-alpha
+ *
  * @package           SmartSorting
  *
  * @wordpress-plugin
  * Plugin Name:       SmartSorting
- * Plugin URI:        http://example.com/smart-sorting-uri/
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
- * Version:           1.0.0
+ * Description:       Smart sorting is an easy way to increase sales and user experience. With any set of products in your online store, it is important to show the user first of all those products that they are most likely to buy. To do this, our plugin collects information about the number of views and sales of each product and re-sorts the products in your store using a simple formula for sales per views.
+ * Version:           1.0.0-alpha
  * Author:            SmartSorting
- * Author URI:        http://example.com/
  * License:           LGPL-3.0+
  * License URI:       https://www.gnu.org/licenses/lgpl-3.0.txt
  * Text Domain:       smart-sorting
@@ -20,19 +19,17 @@
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
+if ( ! defined( 'WC_PLUGIN_FILE' ) ) {
 	die;
 }
 
 /**
  * Currently plugin version.
- * Start at version 1.0.0 and use SemVer - https://semver.org
  */
-define( 'SMART_SORTING_VERSION', '1.0.0' );
+define( 'SMART_SORTING_VERSION', '1.0.0-alpha' );
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-smart-sorting-activator.php
  */
 function activate_smart_sorting() {
 	require_once plugin_dir_path( __FILE__ ) .
@@ -42,7 +39,6 @@ function activate_smart_sorting() {
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-smart-sorting-deactivator.php
  */
 function deactivate_smart_sorting() {
 	require_once plugin_dir_path( __FILE__ ) .
@@ -62,11 +58,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-smart-sorting.php';
 /**
  * Begins execution of the plugin.
  *
- * Since everything within the plugin is registered via hooks,
- * then kicking off the plugin from this point in the file does
- * not affect the page life cycle.
- *
- * @since    1.0.0
+ * @since    1.0.0-alpha
  */
 function run_smart_sorting() {
 

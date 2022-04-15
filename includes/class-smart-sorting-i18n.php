@@ -1,16 +1,16 @@
 <?php
 
 /**
- * Define the internationalization functionality
+ * Define the internationalization functionality.
  *
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @link       http://example.com
- * @since      1.0.0
+ * @license     https://www.gnu.org/licenses/lgpl-3.0.txt  LGPL License 3.0
+ * @since       1.0.0-alpha
  *
- * @package    SmartSorting
- * @subpackage SmartSorting/includes
+ * @package     SmartSorting
+ * @subpackage  SmartSorting/includes
  */
 
 /**
@@ -19,10 +19,9 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @since      1.0.0
- * @package    SmartSorting
- * @subpackage SmartSorting/includes
- * @author     Your Name <email@example.com>
+ * @package     SmartSorting
+ * @subpackage  SmartSorting/includes
+ * @author      SmartSorting Team <smartsprtingofficial@gmail.com>
  */
 class Smart_Sorting_i18n {
 
@@ -30,7 +29,7 @@ class Smart_Sorting_i18n {
 	/**
 	 * Load the plugin text domain for translation.
 	 *
-	 * @since    1.0.0
+	 * @since    1.0.0-alpha
 	 */
 	public function load_plugin_smart_sorting() {
 

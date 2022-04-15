@@ -1,16 +1,14 @@
 <?php
 
 /**
- * Provide a public-facing view for the plugin
+ * Provide a public-facing view for the plugin/
  *
  * This file is used to markup the public-facing aspects of the plugin.
  *
- * @link       http://example.com
- * @since      1.0.0
+ * @license     https://www.gnu.org/licenses/lgpl-3.0.txt  LGPL License 3.0
+ * @since       1.0.0-alpha
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/public/partials
+ * @package     SmartSorting
+ * @subpackage  SmartSorting/public/partials
  */
 ?>
-
-<!-- This file should primarily consist of HTML with a little bit of PHP. -->

@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Fired during plugin deactivation
+ * Fired during plugin deactivation.
  *
- * @link       http://example.com
- * @since      1.0.0
+ * @license     https://www.gnu.org/licenses/lgpl-3.0.txt  LGPL License 3.0
+ * @since       1.0.0-alpha
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/includes
+ * @package     SmartSorting
+ * @subpackage  SmartSorting/includes
  */
 
 /**
@@ -15,19 +15,14 @@
  *
  * This class defines all code necessary to run during the plugin's deactivation.
  *
- * @since      1.0.0
- * @package    Smart_orting
- * @subpackage SmartSorting/includes
- * @author     Your Name <email@example.com>
+ * @package     SmartSorting
+ * @subpackage  SmartSorting/includes
+ * @author      SmartSorting Team <smartsprtingofficial@gmail.com>
  */
 class Smart_Sorting_Deactivator {
 
 	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
-	 *
-	 * @since    1.0.0
+	 * @since    1.0.0-alpha
 	 */
 	public static function deactivate() {
 

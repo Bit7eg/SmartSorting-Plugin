@@ -1,4 +1,18 @@
 <?php
+
+/**
+ * Send the current view to the database.
+ *
+ * This script is used to save data about each view and
+ * write this data to the database.
+ *
+ * @license     https://www.gnu.org/licenses/lgpl-3.0.txt  LGPL License 3.0
+ * @since       1.0.0-alpha
+ *
+ * @package     SmartSorting
+ * @subpackage  SmartSorting/public/partials
+ */
+
 $product_id = $_POST['productId'];
 include __DIR__ . "/../../../../../wp-load.php";
 global $wpdb;

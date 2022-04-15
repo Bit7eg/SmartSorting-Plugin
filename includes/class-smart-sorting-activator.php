@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Fired during plugin activation
+ * Fired during plugin activation.
  *
- * @link       http://example.com
- * @since      1.0.0
+ * @license     https://www.gnu.org/licenses/lgpl-3.0.txt  LGPL License 3.0
+ * @since       1.0.0-alpha
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/includes
+ * @package     SmartSorting
+ * @subpackage  SmartSorting/includes
  */
 
 /**
@@ -15,18 +15,18 @@
  *
  * This class defines all code necessary to run during the plugin's activation.
  *
- * @since      1.0.0
- * @package    SmartSorting
- * @subpackage SmartSorting/includes
- * @author     Your Name <email@example.com>
+ * @package     SmartSorting
+ * @subpackage  SmartSorting/includes
+ * @author      SmartSorting Team <smartsprtingofficial@gmail.com>
  */
 
 class Smart_Sorting_Activator {
 
     /**
+     * For all created products, adds metadata that is used for sorting.
      *
+     * @since   1.0.0-alpha
      */
-
     private static function add_spv_field() {
         $posts_meta = array(
             'spv_views',
@@ -51,9 +51,10 @@ class Smart_Sorting_Activator {
     }
 
     /**
+     * Creates a table that stores all user views.
      *
+     * @since   1.0.0-alpha
      */
-
     private static function add_views_tracking_table() {
         global $wpdb;
         $wpdb->query(
@@ -67,12 +68,11 @@ class Smart_Sorting_Activator {
     }
 
     /**
-     * Short Description. (use period)
-     * Long Description.
+     * Add necessary data to products, add additional tables in database
+     * and add plugin options.
      *
-     * @since    1.0.0
+     * @since    1.0.0-alpha
      */
-
 	public static function activate() {
         self::add_spv_field();
         self::add_views_tracking_table();

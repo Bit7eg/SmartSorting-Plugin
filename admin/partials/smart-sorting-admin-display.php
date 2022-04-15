@@ -1,4 +1,23 @@
-<?php function show_smart_sorting_options() { ?>
+<?php
+
+/**
+ * Provide an admin-specific view for the plugin.
+ *
+ * This file is used to markup the admin-specific aspects of the plugin.
+ *
+ * @license     https://www.gnu.org/licenses/lgpl-3.0.txt  LGPL License 3.0
+ * @since       1.0.0-alpha
+ *
+ * @package     SmartSorting
+ * @subpackage  SmartSorting/admin/partials
+ */
+
+/**
+ * Creates a form for changing plugin settings.
+ *
+ * @since   1.0.0-alpha
+ */
+function show_smart_sorting_options() { ?>
         <div class="wrap">
 	        <h1><?php echo get_admin_page_title(); ?></h1>
 	        <form method="post" action="options.php">
