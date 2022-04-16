@@ -125,12 +125,6 @@ class Smart_Sorting {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) .
             'public/class-smart-sorting-public.php';
 
-        /**
-         *
-         *
-        require_once plugin_dir_path( dirname( __FILE__, 2 ) ) .
-            'woocommerce/woocommerce.php';*/
-
 		$this->loader = new Smart_Sorting_Loader();
 
 	}

@@ -134,7 +134,7 @@ class Smart_Sorting_Public {
     /**
      * Update sales and views values after a purchase.
      *
-     * @param   integer $order_id
+     * @param   $order_id
      * @since   1.0.0-alpha
      */
     public function track_total_sales( $order_id ) {
@@ -152,11 +152,10 @@ class Smart_Sorting_Public {
 
                     $wpdb->query(
                         $wpdb->prepare(
-                            "UPDATE %s
+                            "UPDATE {$wpdb->postmeta}
                                 SET meta_value = meta_value + %f
                                 WHERE post_id = %d
                                   AND meta_key = 'spv_sales'",
-                            $wpdb->postmeta,
                             $item->get_quantity(),
                             $cart_product_id
                         )
@@ -218,11 +217,10 @@ class Smart_Sorting_Public {
 
                             $wpdb->query(
                                 $wpdb->prepare(
-                                    "UPDATE %s
+                                    "UPDATE {$wpdb->postmeta}
                                         SET meta_value = meta_value + %d
                                         WHERE post_id = %d
                                           AND meta_key = 'spv_views'",
-                                    $wpdb->postmeta,
                                     $viewed_product_views,
                                     $viewed_product_id
                                 )

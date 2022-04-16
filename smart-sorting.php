@@ -19,7 +19,7 @@
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WC_PLUGIN_FILE' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 

@@ -6,8 +6,32 @@ pluginPath = window.location.protocol + '//' +
 
 (function( $ ) {
 	var current;
-	$(document).scroll( updatePageInformation( $ ) );
-	$(window).resize( updatePageInformation( $ ) );
+	$(document).scroll( function () {
+		current = getFirst();
+		if ( null !== current ) {
+			if( first !== current ) {
+				first = current;
+				products = getProducts();
+			}
+			products.forEach(( value, key ) => checkPosition( key, $ ));
+		}
+		else {
+			console.log( 'Page not found' );
+		}
+	} );
+	$(window).resize( function () {
+		current = getFirst();
+		if ( null !== current ) {
+			if( first !== current ) {
+				first = current;
+				products = getProducts();
+			}
+			products.forEach(( value, key ) => checkPosition( key, $ ));
+		}
+		else {
+			console.log( 'Page not found' );
+		}
+	} );
 
 	current = getFirst();
 	first = current;
@@ -20,20 +44,6 @@ pluginPath = window.location.protocol + '//' +
 	}
 
 })( jQuery );
-
-function updatePageInformation( $ ) {
-	var current = getFirst();
-	if ( null !== current ) {
-		if( first !== current ) {
-			first = current;
-			products = getProducts();
-		}
-		products.forEach(( value, key ) => checkPosition( key, $ ));
-	}
-	else {
-		console.log( 'Page not found' );
-	}
-}
 
 function checkPosition( element, $ ) {
 	var elementClass = '.post-' + element,
@@ -51,9 +61,9 @@ function checkPosition( element, $ ) {
 		seeY1 = topScroll,
 		seeY2 = screenHeight + topScroll,
 		divX1 = divLeft,
-		divX2 = divLeft + divHeight,
+		divX2 = divLeft + divWidth,
 		divY1 = divTop,
-		divY2 = divTop + divWidth;
+		divY2 = divTop + divHeight;
 
 	if ( divX1 >= seeX1 && divX2 <= seeX2 && divY1 >= seeY1 && divY2 <= seeY2 ) {
 		if ( ! products.get( element ) ) {

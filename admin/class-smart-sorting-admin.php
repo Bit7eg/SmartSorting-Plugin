@@ -109,6 +109,23 @@ class Smart_Sorting_Admin {
      * @since   1.0.0-alpha
      */
     public function add_spv_metadata( $product_id ) {
+        $params = array(
+            'post_type' => 'product',
+            'meta_key'  => 'total_sales',
+            'orderby'   => 'meta_value_num',
+            'order'     => 'DESC',
+        );
+
+        $product_list = ( new WP_Query( $params ) )->posts;
+
+        $max_spv = get_post_meta( $product_list[0]->ID, 'spv', true );
+        $min_spv = get_post_meta(
+            $product_list[ count( $product_list ) - 1 ]->ID,
+            'spv',
+            true
+        );
+        $middle_spv = ( $max_spv + $min_spv ) / 2;
+
         $spv_attributes = array(
             'spv_views',
             'spv_sales',
@@ -117,7 +134,13 @@ class Smart_Sorting_Admin {
         foreach ( $spv_attributes as $key ) {
             $value = get_post_meta( $product_id, $key, true );
             if ( '' == $value ) {
-                $value = 0;
+                if ( 'spv_views' == $key ) {
+                    $value = 100;
+                } elseif ( 'spv_sales' == $key ) {
+                    $value = (int) ( $middle_spv * 100 );
+                } elseif ( 'spv' == $key ) {
+                    $value = $middle_spv;
+                }
             }
             update_post_meta( $product_id, $key, $value );
         }

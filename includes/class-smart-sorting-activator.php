@@ -28,24 +28,50 @@ class Smart_Sorting_Activator {
      * @since   1.0.0-alpha
      */
     private static function add_spv_field() {
+
         $posts_meta = array(
             'spv_views',
             'spv_sales',
             'spv',
         );
 
-        $product_query = new WP_Query( array(
+        $params = array(
             'post_type' => 'product',
-        ));
-        while ( $product_query->have_posts() ) {
-            $product_query->the_post();
-            $id = $product_query->post->ID;
+            'meta_key'  => 'total_sales',
+            'orderby'   => 'meta_value_num',
+            'order'     => 'DESC',
+        );
+
+        $product_list = (new WP_Query( $params ))->posts;
+
+        $max_sales = get_post_meta(
+            $product_list[0]->ID,
+            'total_sales',
+            true
+        );
+
+        foreach ( $product_list as $product) {
+            $id    = $product->ID;
+            $views = 0;
+            $sales = 0;
             foreach ( $posts_meta as $key ) {
                 $value = get_post_meta( $id, $key, true );
-                if( $value == '' ) {
-                    $value = 0;
+                if ( 'spv_views' == $key ) {
+                    if( '' == $value ) {
+                        $value = 100;
+                    }
+                    $views = $value;
+                } elseif ( 'spv_sales' == $key ) {
+                    if( '' == $value ) {
+                        $value = get_post_meta($id, 'total_sales', true);
+                        $value = (int)(((($value) / $max_sales) *
+                                0.5 + 0.5) * 100);
+                    }
+                    $sales = $value;
+                } elseif ( 'spv' == $key ) {
+                    $value = (float) $sales / (float) $views;
                 }
-                update_post_meta($id, $key, $value);
+                update_post_meta( $id, $key, $value );
             }
         }
     }
