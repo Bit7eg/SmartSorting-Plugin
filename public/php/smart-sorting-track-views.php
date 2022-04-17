@@ -23,7 +23,7 @@ if ( is_user_logged_in() ) {
 }
 $wpdb->query(
     $wpdb->prepare(
-        "UPDATE `wp_smart-sorting_views_table`
+        "UPDATE wp_smart_sorting_views_table
             SET view_num = view_num + 1
             WHERE product_id = %d
               AND user_id = %d
@@ -36,7 +36,7 @@ $wpdb->query(
 if ( 0 == $wpdb->rows_affected ) {
     $wpdb->query(
         $wpdb->prepare(
-            "INSERT INTO `wp_smart-sorting_views_table`
+            "INSERT INTO wp_smart_sorting_views_table
                 (product_id, user_id, view_date, view_num)
                 VALUES (%d, %d, CURRENT_DATE, 1)",
             $product_id,

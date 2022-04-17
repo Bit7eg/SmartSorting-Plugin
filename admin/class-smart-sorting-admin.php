@@ -105,26 +105,39 @@ class Smart_Sorting_Admin {
     /**
      * Adds product metadata that is used for sorting.
      *
-     * @param   integer $product_id ID of the product for which metadata are being added
+     * @param integer $product_id ID of the product for which metadata are being added
      * @since   1.0.0-alpha
      */
     public function add_spv_metadata( $product_id ) {
         $params = array(
-            'post_type' => 'product',
-            'meta_key'  => 'total_sales',
-            'orderby'   => 'meta_value_num',
-            'order'     => 'ASC',
+            'post_type'      => 'product',
+            'numberposts'    => 1,
+            'meta_key'       => 'total_sales',
+            'orderby'        => 'meta_value_num',
+            'order'          => 'ASC',
         );
-
-        $product_list = ( new WP_Query( $params ) )->posts;
-
-        $middle_spv_num = (int) (count( $product_list ) / 2);
-        $middle_spv = (float) get_post_meta(
-            $product_list[ $middle_spv_num ]->ID,
+        $product_list = get_posts( $params );
+        $min_spv = (float) get_post_meta(
+            $product_list[0]->ID,
             'spv',
             true
         );
 
+        $params = array(
+            'post_type'      => 'product',
+            'numberposts'    => 1,
+            'meta_key'       => 'total_sales',
+            'orderby'        => 'meta_value_num',
+            'order'          => 'DESC',
+        );
+        $product_list = get_posts( $params );
+        $max_spv = (float) get_post_meta(
+            $product_list[0]->ID,
+            'spv',
+            true
+        );
+
+        $middle_spv = ( $max_spv + $min_spv ) / 2;
         $spv_attributes = array(
             'spv_views',
             'spv_sales',
@@ -142,6 +155,23 @@ class Smart_Sorting_Admin {
                 }
             }
             update_post_meta( $product_id, $key, $value );
+        }
+    }
+
+    /**
+     * When a product is deleted, deletes product data that plugin created.
+     *
+     * @param   integer $id ID of the deleting product
+     * @since   1.0.0-alpha
+     */
+    public function delete_product_data( $id ) {
+        $meta_list = array(
+            'spv_views',
+            'spv_sales',
+            'spv',
+        );
+        foreach ( $meta_list as $meta ) {
+            delete_metadata( 'product', $id, $meta);
         }
     }
 

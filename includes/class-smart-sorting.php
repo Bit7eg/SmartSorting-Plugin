@@ -189,6 +189,11 @@ class Smart_Sorting {
             $plugin_admin,
             'add_spv_metadata'
         );
+        $this->loader->add_action(
+            'woocommerce_before_delete_product',
+            $plugin_admin,
+            'delete_product_data'
+        );
 
 	}
 

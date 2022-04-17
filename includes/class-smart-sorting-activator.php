@@ -36,43 +36,55 @@ class Smart_Sorting_Activator {
         );
 
         $params = array(
-            'post_type' => 'product',
-            'meta_key'  => 'total_sales',
-            'orderby'   => 'meta_value_num',
-            'order'     => 'DESC',
+            'post_type'      => 'product',
+            'meta_key'       => 'total_sales',
+            'orderby'        => 'meta_value_num',
+            'order'          => 'DESC',
         );
 
-        $product_list = (new WP_Query( $params ))->posts;
+        $product_query = new WP_Query( $params );
 
-        $max_sales = (float) get_post_meta(
-            $product_list[0]->ID,
-            'total_sales',
-            true
-        );
-
-        foreach ( $product_list as $product) {
-            $id    = $product->ID;
-            $views = 0;
-            $sales = 0;
-            foreach ( $posts_meta as $key ) {
-                $value = (float) get_post_meta( $id, $key, true );
-                if ( 'spv_views' == $key ) {
-                    if( '' == $value ) {
-                        $value = 100;
-                    }
-                    $views = $value;
-                } elseif ( 'spv_sales' == $key ) {
-                    if( '' == $value ) {
-                        $value = (float) get_post_meta($id, 'total_sales', true);
-                        $value = (int)(((($value) / $max_sales) *
-                                0.5 + 0.5) * 100);
-                    }
-                    $sales = $value;
-                } elseif ( 'spv' == $key ) {
-                    $value = (float) $sales / (float) $views;
+        if ( $product_query->have_posts() ) {
+            $fl = false;
+            $max_sales = 0;
+            while ( $product_query->have_posts() ) {
+                $product_query->the_post();
+                $id    = $product_query->prost->ID;
+                if ( ! $fl ) {
+                    $max_sales = (float) get_post_meta(
+                        $id,
+                        'total_sales',
+                        true
+                    );
+                    $fl = true;
                 }
-                update_post_meta( $id, $key, $value );
+                $views = 0;
+                $sales = 0;
+                foreach ( $posts_meta as $key ) {
+                    $value = get_post_meta( $id, $key, true );
+                    if ( 'spv_views' == $key ) {
+                        if( '' == $value ) {
+                            $value = 100;
+                        }
+                        $views = $value;
+                    } elseif ( 'spv_sales' == $key ) {
+                        if( '' == $value ) {
+                            if ( 0 == $max_sales ) {
+                                $value = 0;
+                            } else {
+                                $value = (float) get_post_meta($id, 'total_sales', true);
+                                $value = (int)(((($value) / $max_sales) *
+                                        0.5 + 0.5) * 100);
+                            }
+                        }
+                        $sales = $value;
+                    } elseif ( 'spv' == $key ) {
+                        $value = (float) $sales / (float) $views;
+                    }
+                    update_post_meta( $id, $key, $value );
+                }
             }
+            wp_reset_postdata();
         }
     }
 
@@ -84,7 +96,7 @@ class Smart_Sorting_Activator {
     private static function add_views_tracking_table() {
         global $wpdb;
         $wpdb->query(
-            "CREATE TABLE `wp_smart-sorting_views_table` (
+            "CREATE TABLE wp_smart_sorting_views_table (
                 product_id INT NOT NULL,
                 user_id INT NOT NULL,
                 view_date DATE NOT NULL,
@@ -102,6 +114,6 @@ class Smart_Sorting_Activator {
 	public static function activate() {
         self::add_spv_field();
         self::add_views_tracking_table();
-        add_option( 'view_delay', 7 );
+        add_option( 'ss_views_delay', 7 );
 	}
 }

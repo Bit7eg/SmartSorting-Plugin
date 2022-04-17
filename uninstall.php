@@ -36,13 +36,12 @@ foreach ( $meta_list as $meta ) {
 // Removing database tables that the plugin creates
 global $wpdb;
 $table_list = array(
-    '`wp_smart-sorting_views_table`',
+    'wp_smart_sorting_views_table',
 );
 foreach ( $table_list as $table ) {
     $wpdb->query(
         $wpdb->prepare(
-            "DROP TABLE IF EXISTS %s",
-            $table
+            "DROP TABLE IF EXISTS {$table}"
         )
     );
 }

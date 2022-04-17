@@ -121,14 +121,15 @@ class Smart_Sorting_Public {
         while ( $product_query->have_posts() ){
             $product_query->the_post();
             $id    = $product_query->post->ID;
-            $views = get_post_meta( $id, 'spv_views', true );
-            $sales = get_post_meta( $id, 'spv_sales', true );
+            $views = (float) get_post_meta( $id, 'spv_views', true );
+            $sales = (float) get_post_meta( $id, 'spv_sales', true );
             $spv_value = 0;
             if ( 0 != $views ) {
-                $spv_value = (float) $sales / (float) $views;
+                $spv_value = $sales / $views;
             }
             update_post_meta( $id, 'spv', $spv_value );
         }
+        wp_reset_postdata();
     }
 
     /**
@@ -171,7 +172,7 @@ class Smart_Sorting_Public {
                         $view_nums = $wpdb->get_results(
                             $wpdb->prepare(
                                 "SELECT product_id, view_num
-                                    FROM `wp_smart-sorting_views_table`
+                                    FROM wp_smart_sorting_views_table
                                     WHERE view_date > DATE_SUB(CURRENT_DATE, INTERVAL %d DAY)
                                       AND user_id = %d
                                       AND is_counted = 0",
@@ -183,7 +184,7 @@ class Smart_Sorting_Public {
                         $view_nums = $wpdb->get_results(
                             $wpdb->prepare(
                                 "SELECT product_id, view_num
-                                    FROM `wp_smart-sorting_views_table`
+                                    FROM wp_smart_sorting_views_table
                                     WHERE user_id = %d
                                       AND is_counted = 0",
                                 $user_id
@@ -205,7 +206,7 @@ class Smart_Sorting_Public {
                         );
                         foreach ( $view_terms as $view_term ) {
                             if ( in_array( $view_term, $sale_terms ) ||
-                                ( 0 == count( $sale_terms ) ) ) {
+                                ( ! $sale_terms ) ) {
                                 $views[ $view_num->product_id ] +=
                                     $view_num->view_num;
                                 break;
@@ -230,7 +231,7 @@ class Smart_Sorting_Public {
                             if ( 0 != $view_delay ) {
                                 $wpdb->query(
                                     $wpdb->prepare(
-                                        "UPDATE `wp_smart-sorting_views_table`
+                                        "UPDATE wp_smart_sorting_views_table
                                             SET is_counted = 1
                                             WHERE view_date > DATE_SUB(CURRENT_DATE, INTERVAL %d DAY)
                                               AND user_id = %d
@@ -244,7 +245,7 @@ class Smart_Sorting_Public {
                             } else {
                                 $wpdb->query(
                                     $wpdb->prepare(
-                                        "UPDATE `wp_smart-sorting_views_table`
+                                        "UPDATE wp_smart_sorting_views_table
                                             SET is_counted = 1
                                             WHERE user_id = %d
                                               AND product_id = %d
