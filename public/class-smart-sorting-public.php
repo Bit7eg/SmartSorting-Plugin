@@ -204,7 +204,8 @@ class Smart_Sorting_Public {
                             'product_cat'
                         );
                         foreach ( $view_terms as $view_term ) {
-                            if ( in_array( $view_term, $sale_terms ) ) {
+                            if ( in_array( $view_term, $sale_terms ) ||
+                                ( 0 == count( $sale_terms ) ) ) {
                                 $views[ $view_num->product_id ] +=
                                     $view_num->view_num;
                                 break;

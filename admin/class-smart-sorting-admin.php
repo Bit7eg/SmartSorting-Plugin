@@ -113,18 +113,17 @@ class Smart_Sorting_Admin {
             'post_type' => 'product',
             'meta_key'  => 'total_sales',
             'orderby'   => 'meta_value_num',
-            'order'     => 'DESC',
+            'order'     => 'ASC',
         );
 
         $product_list = ( new WP_Query( $params ) )->posts;
 
-        $max_spv = get_post_meta( $product_list[0]->ID, 'spv', true );
-        $min_spv = get_post_meta(
-            $product_list[ count( $product_list ) - 1 ]->ID,
+        $middle_spv_num = (int) (count( $product_list ) / 2);
+        $middle_spv = (float) get_post_meta(
+            $product_list[ $middle_spv_num ]->ID,
             'spv',
             true
         );
-        $middle_spv = ( $max_spv + $min_spv ) / 2;
 
         $spv_attributes = array(
             'spv_views',

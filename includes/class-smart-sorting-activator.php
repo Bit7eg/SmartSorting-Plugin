@@ -44,7 +44,7 @@ class Smart_Sorting_Activator {
 
         $product_list = (new WP_Query( $params ))->posts;
 
-        $max_sales = get_post_meta(
+        $max_sales = (float) get_post_meta(
             $product_list[0]->ID,
             'total_sales',
             true
@@ -55,7 +55,7 @@ class Smart_Sorting_Activator {
             $views = 0;
             $sales = 0;
             foreach ( $posts_meta as $key ) {
-                $value = get_post_meta( $id, $key, true );
+                $value = (float) get_post_meta( $id, $key, true );
                 if ( 'spv_views' == $key ) {
                     if( '' == $value ) {
                         $value = 100;
@@ -63,7 +63,7 @@ class Smart_Sorting_Activator {
                     $views = $value;
                 } elseif ( 'spv_sales' == $key ) {
                     if( '' == $value ) {
-                        $value = get_post_meta($id, 'total_sales', true);
+                        $value = (float) get_post_meta($id, 'total_sales', true);
                         $value = (int)(((($value) / $max_sales) *
                                 0.5 + 0.5) * 100);
                     }
