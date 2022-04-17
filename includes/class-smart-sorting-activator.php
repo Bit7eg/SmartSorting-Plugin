@@ -49,7 +49,7 @@ class Smart_Sorting_Activator {
             $max_sales = 0;
             while ( $product_query->have_posts() ) {
                 $product_query->the_post();
-                $id    = $product_query->prost->ID;
+                $id = $product_query->post->ID;
                 if ( ! $fl ) {
                     $max_sales = (float) get_post_meta(
                         $id,
