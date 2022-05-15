@@ -4,7 +4,7 @@
  * The admin-specific functionality of the plugin.
  *
  * @license     https://www.gnu.org/licenses/lgpl-3.0.txt  LGPL License 3.0
- * @since       1.0.0-alpha
+ * @since       0.1.0
  *
  * @package     SmartSorting
  * @subpackage  SmartSorting/admin
@@ -24,7 +24,7 @@ class Smart_Sorting_Admin {
     /**
      * The ID of this plugin.
      *
-     * @since    1.0.0-alpha
+     * @since    0.1.0
      * @access   private
      * @var      string $smart_sorting The ID of this plugin.
      */
@@ -33,7 +33,7 @@ class Smart_Sorting_Admin {
     /**
      * The version of this plugin.
      *
-     * @since    1.0.0-alpha
+     * @since    0.1.0
      * @access   private
      * @var      string $version The current version of this plugin.
      */
@@ -44,7 +44,7 @@ class Smart_Sorting_Admin {
      *
      * @param   string  $smart_sorting  The name of this plugin.
      * @param   string  $version        The version of this plugin.
-     * @since   1.0.0-alpha
+     * @since   0.1.0
      */
     public function __construct( $smart_sorting, $version ) {
 
@@ -56,7 +56,7 @@ class Smart_Sorting_Admin {
     /**
      * Register the stylesheets for the admin area.
      *
-     * @since   1.0.0-alpha
+     * @since   0.1.0
      */
     public function enqueue_styles() {
 
@@ -73,7 +73,7 @@ class Smart_Sorting_Admin {
     /**
      * Register the JavaScript for the admin area.
      *
-     * @since   1.0.0-alpha
+     * @since   0.1.0
      */
     public function enqueue_scripts() {
 
@@ -90,7 +90,7 @@ class Smart_Sorting_Admin {
     /**
      * Creates a plugin section in the settings menu.
      *
-     * @since   1.0.0-alpha
+     * @since   0.1.0
      */
     public function create_admin_menu() {
         add_options_page(
@@ -106,7 +106,7 @@ class Smart_Sorting_Admin {
      * Adds product metadata that is used for sorting.
      *
      * @param integer $product_id ID of the product for which metadata are being added
-     * @since   1.0.0-alpha
+     * @since   0.1.0
      */
     public function add_spv_metadata( $product_id ) {
         $params = array(
@@ -162,7 +162,7 @@ class Smart_Sorting_Admin {
      * When a product is deleted, deletes product data that plugin created.
      *
      * @param   integer $id ID of the deleting product
-     * @since   1.0.0-alpha
+     * @since   0.1.0
      */
     public function delete_product_data( $id ) {
         $meta_list = array(
@@ -178,7 +178,7 @@ class Smart_Sorting_Admin {
     /**
      * Used to display the contents of the plugin section.
      *
-     * @since   1.0.0-alpha
+     * @since   0.1.0
      */
     public function load_menu_content() {
         include plugin_dir_path( __FILE__ ) .
@@ -189,7 +189,7 @@ class Smart_Sorting_Admin {
     /**
      * Creates fields for each plugin option.
      *
-     * @since   1.0.0-alpha
+     * @since   0.1.0
      */
     public function smart_sorting_settings_fields() {
         register_setting(
@@ -221,7 +221,7 @@ class Smart_Sorting_Admin {
      * Used to create a field for the delay views option.
      *
      * @param   array $args
-     * @since   1.0.0-alpha
+     * @since   0.1.0
      */
     public function display_views_delay_field( $args ) {
         $option = get_option( $args['name'] );

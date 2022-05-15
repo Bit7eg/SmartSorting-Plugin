@@ -7,7 +7,7 @@
  * so that it is ready for translation.
  *
  * @license     https://www.gnu.org/licenses/lgpl-3.0.txt  LGPL License 3.0
- * @since       1.0.0-alpha
+ * @since       0.1.0
  *
  * @package     SmartSorting
  * @subpackage  SmartSorting/includes
@@ -29,7 +29,7 @@ class Smart_Sorting_i18n {
 	/**
 	 * Load the plugin text domain for translation.
 	 *
-	 * @since    1.0.0-alpha
+	 * @since    0.1.0
 	 */
 	public function load_plugin_smart_sorting() {
 

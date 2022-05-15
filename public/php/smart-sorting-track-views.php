@@ -7,7 +7,7 @@
  * write this data to the database.
  *
  * @license     https://www.gnu.org/licenses/lgpl-3.0.txt  LGPL License 3.0
- * @since       1.0.0-alpha
+ * @since       0.1.0
  *
  * @package     SmartSorting
  * @subpackage  SmartSorting/public/partials

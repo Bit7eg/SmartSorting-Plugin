@@ -4,7 +4,7 @@
  * Fired during plugin activation.
  *
  * @license     https://www.gnu.org/licenses/lgpl-3.0.txt  LGPL License 3.0
- * @since       1.0.0-alpha
+ * @since       0.1.0
  *
  * @package     SmartSorting
  * @subpackage  SmartSorting/includes
@@ -25,7 +25,7 @@ class Smart_Sorting_Activator {
     /**
      * For all created products, adds metadata that is used for sorting.
      *
-     * @since   1.0.0-alpha
+     * @since   0.1.0
      */
     private static function add_spv_field() {
 
@@ -91,7 +91,7 @@ class Smart_Sorting_Activator {
     /**
      * Creates a table that stores all user views.
      *
-     * @since   1.0.0-alpha
+     * @since   0.1.0
      */
     private static function add_views_tracking_table() {
         global $wpdb;
@@ -109,7 +109,7 @@ class Smart_Sorting_Activator {
      * Add necessary data to products, add additional tables in database
      * and add plugin options.
      *
-     * @since    1.0.0-alpha
+     * @since    0.1.0
      */
 	public static function activate() {
         self::add_spv_field();

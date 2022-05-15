@@ -4,7 +4,7 @@
  * Fired during plugin deactivation.
  *
  * @license     https://www.gnu.org/licenses/lgpl-3.0.txt  LGPL License 3.0
- * @since       1.0.0-alpha
+ * @since       0.1.0
  *
  * @package     SmartSorting
  * @subpackage  SmartSorting/includes
@@ -22,7 +22,7 @@
 class Smart_Sorting_Deactivator {
 
 	/**
-	 * @since    1.0.0-alpha
+	 * @since    0.1.0
 	 */
 	public static function deactivate() {
 

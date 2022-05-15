@@ -6,7 +6,7 @@
  * This file is used to markup the admin-specific aspects of the plugin.
  *
  * @license     https://www.gnu.org/licenses/lgpl-3.0.txt  LGPL License 3.0
- * @since       1.0.0-alpha
+ * @since       0.1.0
  *
  * @package     SmartSorting
  * @subpackage  SmartSorting/admin/partials
@@ -15,7 +15,7 @@
 /**
  * Creates a form for changing plugin settings.
  *
- * @since   1.0.0-alpha
+ * @since   0.1.0
  */
 function show_smart_sorting_options() { ?>
         <div class="wrap">

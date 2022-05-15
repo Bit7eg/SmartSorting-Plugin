@@ -4,7 +4,7 @@
  * The public-facing functionality of the plugin.
  *
  * @license     https://www.gnu.org/licenses/lgpl-3.0.txt  LGPL License 3.0
- * @since       1.0.0-alpha
+ * @since       0.1.0
  *
  * @package     SmartSorting
  * @subpackage  SmartSorting/public
@@ -24,7 +24,7 @@ class Smart_Sorting_Public {
 	/**
 	 * The ID of this plugin.
 	 *
-	 * @since    1.0.0-alpha
+	 * @since    0.1.0
 	 * @access   private
 	 * @var      string $smart_sorting The ID of this plugin.
 	 */
@@ -33,7 +33,7 @@ class Smart_Sorting_Public {
 	/**
 	 * The version of this plugin.
 	 *
-	 * @since    1.0.0-alpha
+	 * @since    0.1.0
 	 * @access   private
 	 * @var      string $version The current version of this plugin.
 	 */
@@ -44,7 +44,7 @@ class Smart_Sorting_Public {
 	 *
 	 * @param   string  $smart_sorting  The name of the plugin.
 	 * @param   string  $version        The version of this plugin.
-     * @since   1.0.0-alpha
+     * @since   0.1.0
 	 */
 	public function __construct( $smart_sorting, $version ) {
 
@@ -56,7 +56,7 @@ class Smart_Sorting_Public {
 	/**
 	 * Register the stylesheets for the public-facing side of the site.
 	 *
-	 * @since    1.0.0-alpha
+	 * @since    0.1.0
 	 */
 	public function enqueue_styles() {
 
@@ -73,7 +73,7 @@ class Smart_Sorting_Public {
 	/**
 	 * Register the JavaScript for the public-facing side of the site.
 	 *
-	 * @since    1.0.0-alpha
+	 * @since    0.1.0
 	 */
 	public function enqueue_scripts() {
 
@@ -92,7 +92,7 @@ class Smart_Sorting_Public {
      *
      * @param   array $args
      * @return  array
-     * @since   1.0.0-alpha
+     * @since   0.1.0
      */
     public function get_smartsorting_ordering_args( $args ) {
         if ( isset( $_GET['orderby'] ) ) {
@@ -112,7 +112,7 @@ class Smart_Sorting_Public {
     /**
      * Update the sorting parameter value.
      *
-     * @since   1.0.0-alpha
+     * @since   0.1.0
      */
     public static function update_spv_value() {
         $product_query = new WP_Query( array(
@@ -136,7 +136,7 @@ class Smart_Sorting_Public {
      * Update sales and views values after a purchase.
      *
      * @param   $order_id
-     * @since   1.0.0-alpha
+     * @since   0.1.0
      */
     public function track_total_sales( $order_id ) {
         global $wpdb;

@@ -3,14 +3,14 @@
 /**
  *
  * @license           https://www.gnu.org/licenses/lgpl-3.0.txt  LGPL License 3.0
- * @since             1.0.0-alpha
+ * @since             0.1.0
  *
  * @package           SmartSorting
  *
  * @wordpress-plugin
  * Plugin Name:       SmartSorting
  * Description:       Smart sorting is an easy way to increase sales and user experience. With any set of products in your online store, it is important to show the user first of all those products that they are most likely to buy. To do this, our plugin collects information about the number of views and sales of each product and re-sorts the products in your store using a simple formula for sales per views.
- * Version:           1.0.0-alpha
+ * Version:           0.1.0
  * Author:            SmartSorting
  * License:           LGPL-3.0+
  * License URI:       https://www.gnu.org/licenses/lgpl-3.0.txt
@@ -26,7 +26,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Currently plugin version.
  */
-define( 'SMART_SORTING_VERSION', '1.0.0-alpha' );
+define( 'SMART_SORTING_VERSION', '0.1.0' );
 
 /**
  * The code that runs during plugin activation.
@@ -58,7 +58,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-smart-sorting.php';
 /**
  * Begins execution of the plugin.
  *
- * @since    1.0.0-alpha
+ * @since    0.1.0
  */
 function run_smart_sorting() {
 
