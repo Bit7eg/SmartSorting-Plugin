@@ -30,7 +30,7 @@ In the search field type “Smart Sorting Lite” and click Search Plugins. Once
 
 = Manual installation =
 
-The manual installation method involves downloading the plugin and uploading it to your webserver via your favourite FTP application. The WordPress codex contains instructions on how to do this here https://wordpress.org/support/article/managing-plugins/#manual-plugin-installation-1.
+The manual installation method involves downloading the plugin and uploading it to your webserver via your favourite FTP application. The WordPress codex contains [instructions on how to do this here](https://wordpress.org/support/article/managing-plugins/#manual-plugin-installation-1).
 
 
 = Where can I report bugs or contribute to the project? =
