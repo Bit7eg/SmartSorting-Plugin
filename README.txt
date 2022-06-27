@@ -1,5 +1,6 @@
 === Smart Sorting Lite ===
 Contributors: alukiko
+Stable Tag: 0.1.0
 Requires at least: 5.9
 Tested up to: 5.9
 Requires PHP: 8.0
