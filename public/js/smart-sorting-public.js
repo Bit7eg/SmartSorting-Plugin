@@ -68,10 +68,10 @@ function checkPosition( element, $ ) {
 	if ( divX1 >= seeX1 && divX2 <= seeX2 && divY1 >= seeY1 && divY2 <= seeY2 ) {
 		if ( ! products.get( element ) ) {
 			products.set( element, true );
-			$.ajax({
-				type: 'POST',
-				url: pluginPath + '/php/smart-sorting-track-views.php',
-				data: { productId: element },
+			$.post(ajax_obj.ajax_url, {
+				_ajax_nonce: ajax_obj.nonce,
+				action: "count_views",
+				productId: element
 			});
 		}
 	}
