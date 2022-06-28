@@ -61,7 +61,7 @@ class Smart_Sorting_Admin {
     public function enqueue_styles() {
 
         wp_enqueue_style(
-            $this->smart_sorting . '_admin_styles',
+            $this->smart_sorting . '_admin_style',
             plugin_dir_url( __FILE__ ) . 'css/smart-sorting-admin.css',
             array(),
             false,
@@ -78,7 +78,7 @@ class Smart_Sorting_Admin {
     public function enqueue_scripts() {
 
         wp_enqueue_script(
-            $this->smart_sorting . '_admin_scripts',
+            $this->smart_sorting . '_admin_script',
             plugin_dir_url( __FILE__ ) . 'js/smart-sorting-admin.js',
             array( 'jquery' ),
             false,

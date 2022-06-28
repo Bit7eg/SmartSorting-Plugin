@@ -70,7 +70,7 @@ function checkPosition( element, $ ) {
 			products.set( element, true );
 			$.post(ajax_obj.ajax_url, {
 				_ajax_nonce: ajax_obj.nonce,
-				action: "count_views",
+				action: "add_view",
 				productId: element
 			});
 		}
