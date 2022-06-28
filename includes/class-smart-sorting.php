@@ -231,6 +231,11 @@ class Smart_Sorting {
             $plugin_public,
             'update_spv_value'
         );
+        $this->loader->add_action(
+            'wp_ajax_add_view',
+            $plugin_public,
+            'ajax_add_view'
+        );
 
         $this->loader->add_filter(
             'woocommerce_get_catalog_ordering_args',
