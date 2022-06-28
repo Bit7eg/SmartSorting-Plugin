@@ -125,7 +125,7 @@ class Smart_Sorting_Public {
         global $wpdb;
 
         check_ajax_referer( 'increment_view' );
-        $product_id = $_POST['productId'];
+        $product_id = sanitize_key( $_POST['productId'] );
 
         if ( is_user_logged_in() ) {
             $user_id = get_current_user_id();
