@@ -1,8 +1,6 @@
 var first, products, pluginPath;
 first = 0;
 products = new Map();
-pluginPath = window.location.protocol + '//' +
-	window.location.host + '/wp-content/plugins/SmartSorting/public';
 
 (function( $ ) {
 	var current;
