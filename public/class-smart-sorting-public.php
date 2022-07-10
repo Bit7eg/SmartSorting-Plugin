@@ -87,8 +87,7 @@ class Smart_Sorting_Public {
             $this->smart_sorting . '_public_script',
             'ajax_obj',
             array(
-                'ajax_url' => plugin_dir_url( dirname(__FILE__) ) .
-                    'includes/class-smart-sorting.php',
+                'ajax_url' => admin_url( 'admin-ajax.php' ),
                 'nonce'    => wp_create_nonce( 'increment_view' ),
             )
         );
@@ -158,7 +157,6 @@ class Smart_Sorting_Public {
             );
         }
 
-        echo 'done';
         wp_die();
     }
 

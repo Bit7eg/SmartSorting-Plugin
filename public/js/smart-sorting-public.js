@@ -70,8 +70,6 @@ function checkPosition( element, $ ) {
 				_ajax_nonce: ajax_obj.nonce,
 				action: "add_view",
 				productId: element
-				}, function (data) {
-					console.log(data);
 				}
 			);
 		}
