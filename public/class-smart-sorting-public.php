@@ -158,6 +158,7 @@ class Smart_Sorting_Public {
             );
         }
 
+        echo 'done';
         wp_die();
     }
 
