@@ -13,9 +13,6 @@ products = new Map();
 			}
 			products.forEach(( value, key ) => checkPosition( key, $ ));
 		}
-		else {
-			console.log( 'Page not found' );
-		}
 	} );
 	$( window ).resize( function () {
 		current = getFirst();
@@ -26,9 +23,6 @@ products = new Map();
 			}
 			products.forEach(( value, key ) => checkPosition( key, $ ));
 		}
-		else {
-			console.log( 'Page not found' );
-		}
 	} );
 
 	current = getFirst();
@@ -36,9 +30,6 @@ products = new Map();
 	if ( null !== current ) {
 		products = getProducts();
 		products.forEach(( value, key ) => checkPosition( key, $ ));
-	}
-	else {
-		console.log( 'Page not found' );
 	}
 
 })( jQuery );
