@@ -4,7 +4,7 @@ products = new Map();
 
 (function( $ ) {
 	var current;
-	$(document).scroll( function () {
+	$( document ).scroll( function () {
 		current = getFirst();
 		if ( null !== current ) {
 			if( first !== current ) {
@@ -17,7 +17,7 @@ products = new Map();
 			console.log( 'Page not found' );
 		}
 	} );
-	$(window).resize( function () {
+	$( window ).resize( function () {
 		current = getFirst();
 		if ( null !== current ) {
 			if( first !== current ) {
@@ -66,7 +66,7 @@ function checkPosition( element, $ ) {
 	if ( divX1 >= seeX1 && divX2 <= seeX2 && divY1 >= seeY1 && divY2 <= seeY2 ) {
 		if ( ! products.get( element ) ) {
 			products.set( element, true );
-			$.post(ajax_obj.ajax_url, {
+			$.post( ajax_obj.ajax_url, {
 				_ajax_nonce: ajax_obj.nonce,
 				action: "add_view",
 				productId: element
