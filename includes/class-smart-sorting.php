@@ -69,7 +69,7 @@ class Smart_Sorting {
 		if ( defined( 'SMART_SORTING_VERSION' ) ) {
 			$this->version = SMART_SORTING_VERSION;
 		} else {
-			$this->version = '0.1.0';
+			$this->version = '0.1.2';
 		}
 		$this->smart_sorting = 'smart-sorting';
 
